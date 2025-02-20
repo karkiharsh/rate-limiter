@@ -30,3 +30,9 @@ uvicorn rate-limiter-mvp:app --reload |rate-limiter-mvp is file's name
 ## to make this file executable | chmod +x test.sh
 
 ## run it with | ./test.sh
+
+---
+
+#### Git
+
+git push --tags
