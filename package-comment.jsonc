@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "build": "tsc --watch", // TypeScript compiler in watch mode
+    "start": "nodemon test-api/api.js", // watch changes + run
+    "dev": "concurrently \"npm run build\" \"npm run start\"" // runs both | no-need for 2 terminals .[ctrl+s in (any .ts file)] build + run
+  }
+}
