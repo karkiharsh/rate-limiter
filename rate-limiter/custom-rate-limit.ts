@@ -6,11 +6,19 @@ const requestCounts: Map<string, number[]> = new Map();
 
 // Rate Limit Config
 const WINDOW_SIZE: number = 6000; // 6 seconds
-const MAX_REQUESTS: number = 5;
+const MAX_REQUESTS: number = 5; // 5 requests per window
 
-const rateLimiter = (req: IncomingMessage, res: ServerResponse): boolean => {
+// Rate Limiter method
+export const rateLimiter = (
+  req: IncomingMessage,
+  res: ServerResponse
+): boolean => {
   const ip: string = req.socket.remoteAddress || ""; // Add a fallback in case remoteAddress is undefined
   const now: number = Date.now();
+  const date: Date = new Date(now);
+
+  console.log(" IP: ", ip);
+  console.log(" Time: ", date.toString());
 
   if (!requestCounts.has(ip)) {
     requestCounts.set(ip, []);
@@ -21,28 +29,18 @@ const rateLimiter = (req: IncomingMessage, res: ServerResponse): boolean => {
     .get(ip)!
     .filter((t) => now - t < WINDOW_SIZE); // Use non-null assertion as we've just checked if it exists
   timestamps.push(now);
-
+  console.log(
+    `Allowed requests: ${MAX_REQUESTS} | Current requests: ${timestamps.length}`
+  );
   // Update the request map
   requestCounts.set(ip, timestamps);
 
   if (timestamps.length > MAX_REQUESTS) {
     res.writeHead(429, { "Content-Type": "text/plain" });
     res.end("Too many requests, slow down!");
+    console.log(" Rate limit exceeded for IP: ", ip);
     return false; // Stop further processing
   }
 
   return true; // Allow request to continue
 };
-
-// Create Server
-const server: http.Server = http.createServer(
-  (req: IncomingMessage, res: ServerResponse) => {
-    if (!rateLimiter(req, res)) return; // Apply Rate Limiter First
-
-    // Actual API logic (runs only if not rate-limited)
-    res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end("Hello, API Response!");
-  }
-);
-
-server.listen(3000, () => console.log("Server running on port 3000"));
