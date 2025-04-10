@@ -8,7 +8,7 @@ const server: http.Server = http.createServer(
 
     // Actual API logic (runs only if not rate-limited)
     res.writeHead(200, { "Content-Type": "text/plain" });
-    res.end("Hello, API Response!");
+    res.end("Hello, API Respns!");
   }
 );
 
