@@ -1,7 +1,15 @@
 {
   "scripts": {
-    "build": "tsc --watch", // TypeScript compiler in watch mode
-    "start": "nodemon test-api/api.js", // watch changes + run
-    "dev": "concurrently \"npm run build\" \"npm run start\"" // runs both | no-need for 2 terminals .[ctrl+s in (any .ts file)] build + run
+    "@types/node": "^22.14.0", //type definition for node's built in modules
+    "concurrently": "^9.1.2" /*
+     Runs tasks in parallel (true concurrency), 
+     outputs are interleaved with labels(because it runs in a single-terminal)
+     */,
+    "nodemon": "^3.1.9", // watch for a file & execute it
+    "ts-loader": "^9.5.2", // this isnt typescript it uses typescript under the hood
+    "typescript": "^5.8.3", // core binary that understands and transpiles typescript
+    "wait-on": "^8.0.3", //utility tool that waits for files, ports, sockets, etc., to exist before continuing
+    "webpack": "^5.99.5", // core bundler
+    "webpack-cli": "^6.0.1" // command-line interface for Webpack
   }
 }
