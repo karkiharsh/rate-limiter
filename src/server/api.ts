@@ -1,7 +1,6 @@
 import * as http from "http";
 import { IncomingMessage, ServerResponse } from "http";
 import { rateLimiter } from "../rate-limiter/custom-rate-limit";
-
 const server: http.Server = http.createServer(
   (req: IncomingMessage, res: ServerResponse) => {
     if (!rateLimiter(req, res)) return; // Apply Rate Limiter First
