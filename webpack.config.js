@@ -1,7 +1,7 @@
 const path = require("path");
 
 module.exports = {
-  entry: "./src/test-api/api.ts",
+  entry: "./src/server/api.ts",
   target: "node", // Important for Node.js apps
   mode: "development",
   module: {
