@@ -1,6 +1,20 @@
 {
   "devDependencies": {
     "@types/node": "^22.14.0",
-    "typescript": "^5.8.3"
+    "concurrently": "^9.1.2",
+    "ngrok": "^5.0.0-beta.2",
+    "nodemon": "^3.1.9",
+    "npm-run-all": "^4.1.5",
+    "ts-loader": "^9.5.2",
+    "typescript": "^5.8.3",
+    "wait-on": "^8.0.3",
+    "webpack": "^5.99.5",
+    "webpack-cli": "^6.0.1"
+  },
+  "scripts": {
+    "tunnel": "node ./src/ngrok/ngrok-tunnel.ts",
+    "watch": "webpack --watch",
+    "dev": "wait-on dist/bundle.js && nodemon --watch dist/bundle.js dist/bundle.js",
+    "start": "concurrently -k -n \"WATCH,DEV\" -c \"magenta,cyan\" \"npm run watch\" \"npm run dev\" \"npm run tunnel\""
   }
 }
