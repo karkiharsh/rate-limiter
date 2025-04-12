@@ -1,6 +1,7 @@
 import * as http from "http";
 import { IncomingMessage, ServerResponse } from "http";
 import { clientIpResolver } from "./client-ip-resolver";
+import { useTunnelingService } from "../config/config";
 // Store request counts (IP → timestamp array)
 const requestCounts: Map<string, number[]> = new Map();
 
@@ -13,7 +14,7 @@ export const rateLimiter = (
   req: IncomingMessage,
   res: ServerResponse
 ): boolean => {
-  const ipAddress: string = clientIpResolver(req, true);
+  const ipAddress: string = clientIpResolver(req, useTunnelingService);
   const now: number = Date.now();
   const date: Date = new Date(now);
 

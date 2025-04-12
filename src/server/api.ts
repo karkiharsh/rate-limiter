@@ -1,6 +1,8 @@
 import * as http from "http";
 import { IncomingMessage, ServerResponse } from "http";
 import { rateLimiter } from "../rate-limiter/custom-rate-limit";
+import { port } from "../config/config";
+
 const server: http.Server = http.createServer(
   (req: IncomingMessage, res: ServerResponse) => {
     if (!rateLimiter(req, res)) return; // Apply Rate Limiter First
@@ -11,4 +13,4 @@ const server: http.Server = http.createServer(
   }
 );
 
-server.listen(3000, () => console.log("Server running on port 3000"));
+server.listen(port, () => console.log(`Server running on port ${port}`));
