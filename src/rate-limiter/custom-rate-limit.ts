@@ -1,20 +1,18 @@
 import * as http from "http";
 import { IncomingMessage, ServerResponse } from "http";
 import { clientIpResolver } from "./client-ip-resolver";
-import { useTunnelingService } from "../config/config";
+import { USE_REVERSE_PROXY } from "../config/config";
+import { WINDOW_SIZE } from "../config/config";
+import { MAX_REQUESTS } from "../config/config";
 // Store request counts (IP → timestamp array)
 const requestCounts: Map<string, number[]> = new Map();
-
-// Rate Limit Config
-const WINDOW_SIZE: number = 6000; // 6 seconds
-const MAX_REQUESTS: number = 5; // 5 requests per window
 
 // Rate Limiter method
 export const rateLimiter = (
   req: IncomingMessage,
   res: ServerResponse
 ): boolean => {
-  const ipAddress: string = clientIpResolver(req, useTunnelingService);
+  const ipAddress: string = clientIpResolver(req, USE_REVERSE_PROXY);
   const now: number = Date.now();
   const date: Date = new Date(now);
 

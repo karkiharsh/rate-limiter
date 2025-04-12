@@ -1,7 +1,7 @@
 import * as http from "http";
 import { IncomingMessage, ServerResponse } from "http";
 import { rateLimiter } from "../rate-limiter/custom-rate-limit";
-import { port } from "../config/config";
+import { PORT } from "../config/config";
 
 const server: http.Server = http.createServer(
   (req: IncomingMessage, res: ServerResponse) => {
@@ -13,4 +13,4 @@ const server: http.Server = http.createServer(
   }
 );
 
-server.listen(port, () => console.log(`Server running on port ${port}`));
+server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
