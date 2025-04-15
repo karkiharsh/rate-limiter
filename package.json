@@ -18,6 +18,9 @@
     "start": "concurrently -k -n \"WATCH,DEV\" -c \"magenta,cyan\" \"npm run watch\" \"npm run dev\" \"npm run tunnel\""
   },
   "dependencies": {
-    "ioredis": "^5.6.1"
-  }
+    "dotenv": "^16.5.0",
+    "ioredis": "^5.6.1",
+    "redis": "^4.7.0"
+  },
+  "type": "module"
 }
