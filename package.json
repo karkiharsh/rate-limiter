@@ -6,7 +6,6 @@
     "nodemon": "^3.1.9",
     "npm-run-all": "^4.1.5",
     "ts-loader": "^9.5.2",
-    "typescript": "^5.8.3",
     "wait-on": "^8.0.3",
     "webpack": "^5.99.5",
     "webpack-cli": "^6.0.1"
@@ -15,12 +14,14 @@
     "tunnel": "node ./src/ngrok/ngrok-tunnel.ts",
     "watch": "webpack --watch",
     "dev": "wait-on dist/bundle.js && nodemon --watch dist/bundle.js dist/bundle.js",
-    "start": "concurrently -k -n \"WATCH,DEV\" -c \"magenta,cyan\" \"npm run watch\" \"npm run dev\" \"npm run tunnel\""
+    "start": "concurrently -k -n \"WATCH,DEV\" -c \"magenta,cyan\" \"npm run watch\" \"npm run dev\" \"npm run tunnel\"",
+    "build:init": "webpack --config webpack-service-init.config.js"
   },
   "dependencies": {
     "dotenv": "^16.5.0",
-    "ioredis": "^5.6.1",
-    "redis": "^4.7.0"
+    "envalid": "^8.0.0",
+    "redis": "^4.7.0",
+    "typescript": "^5.8.3"
   },
   "type": "module"
 }
