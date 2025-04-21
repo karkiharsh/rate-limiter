@@ -1,7 +1,7 @@
 import { client } from "./index.js";
 
 
-const addCounter = async (key: string, ttl: number) => {
+const addCounter = async (key: string, ttl: number):Promise<number> => {
   const script = `
     local current = redis.call('INCR', KEYS[1])
     if current == 1 then
@@ -13,8 +13,9 @@ const addCounter = async (key: string, ttl: number) => {
     keys: [key],
     arguments: [ttl.toString()],
   });
-
   console.log("Counter incremented successfully!", result);
+
+return result as number; // cast to number
 };
 const  crud = async ()=> { 
     console.log(" Trying crud operations....")
