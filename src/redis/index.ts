@@ -1,6 +1,6 @@
 // redis-client.ts
 import { createClient } from 'redis';
-import { REDIS_CREDENTIALS } from '../config/redis/redis-config';
+import { REDIS_CREDENTIALS } from '../config/redis/redis-config.js';
 
 const client = createClient({
   username: 'default',

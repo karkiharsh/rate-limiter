@@ -1,5 +1,5 @@
 // index.ts or main entry point
-import { connectRedis } from '../redis';
+import { connectRedis } from '../redis/index.js';
 // however you start your service
 
 (async () => {
