@@ -9,6 +9,7 @@ const env = cleanEnv(process.env, {
   REDIS_PASSWORD: str(),
   REDIS_HOST: str(),
   REDIS_PORT: port(), // Use the 'port()' validator to ensure it's a valid port number
+  ENVIRONMENT:str()
 });
 
 console.log(env);
