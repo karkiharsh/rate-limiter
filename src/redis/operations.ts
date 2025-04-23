@@ -9,6 +9,7 @@ const addCounter = async (key: string, ttl: number):Promise<number> => {
     end
     return current
   `; // lua scripts are evalulated as atomic operations to counter race-conditions
+ 
   const result = await client.eval(script, {
     keys: [key],
     arguments: [ttl.toString()],
@@ -17,18 +18,5 @@ const addCounter = async (key: string, ttl: number):Promise<number> => {
 
 return result as number; // cast to number
 };
-const  crud = async ()=> { 
-    console.log(" Trying crud operations....")
-    try {
 
-        await client.set('username', 'chatgpt');
-        console.log(" Value set successfully!");
-        let username : string | null  = await client.get('username');
-        console.log(" Value retrieved successfully! ", username);
-    
-      } catch (err) {
-        console.error('🚨 Could not set value ', err);
-        process.exit(1);
-      }
-}
-export { crud , addCounter };
+export {addCounter};
