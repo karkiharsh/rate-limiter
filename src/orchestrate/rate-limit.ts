@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { addCounter } from "../redis/crud-operations.js";
+import { addCounter } from "../redis/operations.js";
 import { WINDOW_SIZE, MAX_REQUESTS } from "../config/rate-limiting.js";
 
 const rateLimit = async (key:string) => {
