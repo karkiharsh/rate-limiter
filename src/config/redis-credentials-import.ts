@@ -1,4 +1,4 @@
-import env from "../env-validator.js";
+import env from "./env-validator.js";
 
 interface RedisCredentials {
 password : string; 
