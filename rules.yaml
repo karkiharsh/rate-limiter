@@ -1,0 +1,2 @@
+window_size: 30 # in seconds
+max_requests: 5
