@@ -1,15 +1,30 @@
 // index.ts or main entry point
 import { connectRedis } from '../redis/index.js';
-import { WINDOW_SIZE, MAX_REQUESTS } from '../config/rate-limiting.js';
 import { port } from '../config/local-server.js'; // import your port from env-validator or config
 import { startServer } from '../orchestrate/start-server.js';
+import { loadYamlFile } from '../orchestrate/load-rules.js';
 // however you start your service
+import { dirname, join } from 'path';
+import { fileURLToPath } from 'url';
 
-const INTERVAL_TIME = 10; // try changing this value and check logs
+// Boilerplate to get __dirname in ESM
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Build absolute path to your YAML file
+const RULE_FILE_PATH = join(__dirname, '../../rules.yaml');
+
 const initialize = async () => {
   try {
-    console.log('Establishing connection to Redis...');
+    console.log(' Loading rules from persistent storage...'); 
     let intervalId = setInterval(() => {console.log('.'); },400);
+
+    const rules = await loadYamlFile(RULE_FILE_PATH);
+    console.log('Rules loaded:', rules); 
+    clearInterval(intervalId);
+
+    console.log('Establishing connection to Redis...');
+    intervalId = setInterval(() => {console.log('.'); },400);
 
     await connectRedis();
     clearInterval(intervalId);
