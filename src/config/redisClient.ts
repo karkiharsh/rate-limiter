@@ -1,13 +1,17 @@
-// src/config/redisClient.ts
 import { createClient } from 'redis';
-import dotenv from 'dotenv';
 
-dotenv.config();
+const { REDIS_HOST, REDIS_PORT, REDIS_PASSWORD } = process.env;
 
-export const redisClient = createClient({
-  url: process.env.REDIS_URL,
+if (!REDIS_HOST || !REDIS_PORT) {
+  throw new Error('Missing required Redis environment variables');
+}
+
+const redisClient = createClient({
+  url: `redis://:${REDIS_PASSWORD ?? ''}@${REDIS_HOST}:${REDIS_PORT}`
 });
 
 redisClient.on('error', (err) => console.error('Redis error', err));
 
 await redisClient.connect();
+
+export { redisClient };
