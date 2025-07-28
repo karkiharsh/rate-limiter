@@ -1,7 +1,7 @@
 // src/routes/adminRoutes.ts
 import  { Request, Response, RequestHandler, Router } from 'express';
-import { validateAdminKey } from '../middlewares/validateAdminKey';
-import { redisClient } from '../config/redisClient';
+import { validateAdminKey } from '../middlewares/validateAdminKey.js';
+import { redisClient } from '../config/redisClient.js';
 import { ClientConfig } from '../types';
 
 
