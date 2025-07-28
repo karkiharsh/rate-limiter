@@ -1,9 +1,9 @@
 // src/app.ts
 import express from 'express';
-import clientRoutes from './routes/clientRoutes';
-import adminRoutes from './routes/adminRoutes';
-import healthRoutes from './routes/ping';
-import  errorHandler  from './middlewares/errorHandler';
+import clientRoutes from './routes/clientRoutes.js';
+import adminRoutes from './routes/adminRoutes.js';
+import healthRoutes from './routes/ping.js';
+import  errorHandler  from './middlewares/errorHandler.js';
 const app = express();
 app.use(express.json());
 app.use('/api', clientRoutes);
