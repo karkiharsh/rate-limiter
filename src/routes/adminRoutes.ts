@@ -7,7 +7,7 @@ import { ClientConfig } from '../types';
 
 const router = Router();
 
-router.use(validateAdminKey as RequestHandler);
+router.use(validateAdminKey as RequestHandler); // routing level middleware
 
 
 // GET /admin/clients → List all clients
