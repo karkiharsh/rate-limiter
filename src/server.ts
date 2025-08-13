@@ -5,7 +5,7 @@ const PORT = process.env.PORT || 3000;
 
 async function startServer() {
   try {
-    await connectRedis(); // 👈 Ensure Redis is connected before app starts
+    await connectRedis(); 
     app.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);
     });
