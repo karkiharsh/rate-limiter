@@ -1,7 +1,7 @@
 import { Router, Request ,Response } from 'express';
-const router = Router();
+const pingRouter = Router();
 
-router.get('/health', (req: Request, res: Response) => {
+pingRouter.get('/health', (req: Request, res: Response) => {
   res.status(200).json({
     status: 'OK',
     timestamp: new Date().toISOString(),
@@ -9,4 +9,4 @@ router.get('/health', (req: Request, res: Response) => {
     message: 'Service is healthy'
   });
 });
-export default router;
+export default pingRouter;
