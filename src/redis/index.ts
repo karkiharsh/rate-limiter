@@ -1,9 +1,9 @@
 // redis-client.ts
-import { createClient } from 'redis';
-import { REDIS_CREDENTIALS } from '../config/redis-credentials-import.js';
+import { createClient } from "redis";
+import { REDIS_CREDENTIALS } from "../config/redis-credentials-import.js";
 
 const client = createClient({
-  username: 'default',
+  username: "default",
   password: REDIS_CREDENTIALS.password,
   socket: {
     host: REDIS_CREDENTIALS.host,
@@ -11,14 +11,14 @@ const client = createClient({
   },
 });
 
-client.on('error', (err) => {
-  console.error('Redis Client Error:', err);
+client.on("error", err => {
+  console.error("Redis Client Error:", err);
 });
 
 // Export the raw client and a function to connect it
 export async function connectRedis() {
   await client.connect();
-  console.log('✅ Redis connected');
+  console.log("✅ Redis connected ");
 }
 
 export { client };
