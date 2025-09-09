@@ -11,7 +11,8 @@
   "devDependencies": {
     "@types/dotenv": "^6.1.1",
     "@types/express": "^5.0.1",
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "vite-node": "^3.2.4"
   },
   "dependencies": {
     "dotenv": "^16.5.0",
