@@ -6,6 +6,13 @@ type RegisterClientRequest = { name: string; tier: string };
 type RegisterClientResponse = { apiKey: string };
 type ErrorResponse = { error: string };
 
+//interface because this will extend 
+interface RateLimitedClientConfig {
+  apiKey: string;                // Unique key provided by server (e.g. from /register)
+  baseUrl: string;               // API base URL (e.g. "https://api.myservice.com")
+  maxRequestsPerWindow: number;  // Limit (for reference only, server is source of truth)
+  windowSizeInSeconds: number;   // Duration of fixed window (for reference)
+}
 const clientRouter = Router();
 
 clientRouter.post("/register",async (req: Request, res: Response) :Promise<any>=> {
