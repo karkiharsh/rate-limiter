@@ -1,7 +1,7 @@
 // src/routes/adminRoutes.ts
 import  { Request, Response, RequestHandler, Router } from 'express';
 import { validateAdminKey } from '../middlewares/validateAdminKey.js';
-import { redisClient } from '../config/redisClient.js';
+import { client } from '../redis/index.js';
 import { ClientConfig } from '../types';
 
 
@@ -13,11 +13,11 @@ router.use(validateAdminKey as RequestHandler); // routing level middleware
 // GET /admin/clients → List all clients
 router.get('/clients', async (req: Request, res: Response) => {
   try {
-    const keys = await redisClient.keys('client:*');
+    const keys = await client.keys('client:*');
     const clients: ClientConfig[] = [];
 
     for (const key of keys) {
-      const val = await redisClient.get(key);
+      const val = await client.get(key);
       if (val) {
         clients.push(JSON.parse(val));
       }
