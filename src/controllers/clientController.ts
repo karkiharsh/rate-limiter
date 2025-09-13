@@ -1,26 +1,26 @@
 // src/controllers/clientController.ts
-import { Request, Response } from "express";
-import crypto from "crypto";
-import { clients , clientConfigs } from "../repository/inMemory";
-import { ClientConfig } from "../types/client";
+import { Request, Response } from 'express';
+import crypto from 'crypto';
+import { clients, clientConfigs } from '../repository/inMemory';
+import { ClientConfig } from '../types/client';
 
 // Register a new client
 export const registerClient = (req: Request, res: Response) => {
   const { clientName, tier } = req.body;
 
   if (!clientName || !tier) {
-    return res.status(400).json({ error: "clientName and tier are required" });
+    return res.status(400).json({ error: 'clientName and tier are required' });
   }
 
   const id = crypto.randomUUID();
-  const apiKey = crypto.randomBytes(16).toString("hex");
+  const apiKey = crypto.randomBytes(16).toString('hex');
   const createdAt = new Date();
 
   // Store client info
   clients[id] = { id, name: clientName, tier, createdAt, apiKey };
 
   // Initialize empty config (default values can be set here or later)
-  clientConfigs[id] = { clientId: id, rateLimit: tier === "premium" ? 1000 : 100 };
+  clientConfigs[id] = { clientId: id, rateLimit: tier === 'premium' ? 1000 : 100 };
 
   return res.status(201).json({ apiKey });
 };
@@ -36,7 +36,7 @@ export const getClientConfig = (req: Request, res: Response) => {
 
   const config: ClientConfig | undefined = clientConfigs[clientId];
   if (!config) {
-    return res.status(404).json({ error: "Client config not found" });
+    return res.status(404).json({ error: 'Client config not found' });
   }
 
   return res.json(config);
@@ -49,7 +49,7 @@ export const updateClientConfig = (req: Request, res: Response) => {
 
   const config = clientConfigs[clientId];
   if (!config) {
-    return res.status(404).json({ error: "Client config not found" });
+    return res.status(404).json({ error: 'Client config not found' });
   }
 
   if (rateLimit !== undefined) config.rateLimit = rateLimit;

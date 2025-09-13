@@ -1,14 +1,12 @@
 // src/routes/adminRoutes.ts
-import  { Request, Response, RequestHandler, Router } from 'express';
+import { Request, Response, RequestHandler, Router } from 'express';
 import { validateAdminKey } from '../middlewares/validateAdminKey.js';
 import { client } from '../redis/index.js';
 import { ClientConfig } from '../types';
 
-
 const router = Router();
 
 router.use(validateAdminKey as RequestHandler); // routing level middleware
-
 
 // GET /admin/clients → List all clients
 router.get('/clients', async (req: Request, res: Response) => {

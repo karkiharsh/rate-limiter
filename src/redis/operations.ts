@@ -1,4 +1,4 @@
-import { client } from "./index.js";
+import { client } from './index.js';
 
 //Use OOPs
 // const addCounter = async (key: string, ttl: number):Promise<number> => {

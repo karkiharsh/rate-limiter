@@ -1,15 +1,15 @@
-import { Router, Request, Response } from "express";
-import { client } from "../redis"; // your Redis client instance
+import { Router, Request, Response } from 'express';
+import { client } from '../redis'; // your Redis client instance
 
 const rateRouter = Router();
 
 // Config
 const WINDOW_SIZE = 60; // seconds
 const MAX_REQUESTS = 5; // requests per window
-rateRouter.get("/check-limit", async (req: Request, res: Response):Promise<any> => {
-  const apiKey = req.header("x-api-key");
+rateRouter.get('/check-limit', async (req: Request, res: Response): Promise<any> => {
+  const apiKey = req.header('x-api-key');
   if (!apiKey) {
-    return res.status(400).json({ error: "x-api-key header is required" });
+    return res.status(400).json({ error: 'x-api-key header is required' });
   }
 
   try {
@@ -18,17 +18,17 @@ rateRouter.get("/check-limit", async (req: Request, res: Response):Promise<any> 
     const redisKey = `rate:${apiKey}:${windowStart}`;
 
     // get current request count
-    const count = parseInt((await client.get(redisKey)) || "0", 10);
+    const count = parseInt((await client.get(redisKey)) || '0', 10);
 
     res.status(200).json({
       apiKey,
       windowStart,
       current: count,
-      limit: MAX_REQUESTS
+      limit: MAX_REQUESTS,
     });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 async function checkRateLimit(apiKey: string): Promise<{ allowed: boolean; retryAfter?: number }> {
@@ -52,10 +52,10 @@ async function checkRateLimit(apiKey: string): Promise<{ allowed: boolean; retry
 
   return { allowed: true };
 }
-rateRouter.get("/enforce", async (req: Request, res: Response) :Promise<any> => {
-  const apiKey = req.header("x-api-key");
+rateRouter.get('/enforce', async (req: Request, res: Response): Promise<any> => {
+  const apiKey = req.header('x-api-key');
   if (!apiKey) {
-    return res.status(400).json({ error: "x-api-key header is required" });
+    return res.status(400).json({ error: 'x-api-key header is required' });
   }
 
   try {
@@ -63,12 +63,12 @@ rateRouter.get("/enforce", async (req: Request, res: Response) :Promise<any> => 
 
     res.status(200).json({
       allowed: result.allowed,
-      retryAfter: result.retryAfter ?? 0
+      retryAfter: result.retryAfter ?? 0,
     });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
-export {rateRouter}; 
+export { rateRouter };

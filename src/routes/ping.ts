@@ -1,4 +1,4 @@
-import { Router, Request ,Response } from 'express';
+import { Router, Request, Response } from 'express';
 const pingRouter = Router();
 
 pingRouter.get('/health', (req: Request, res: Response) => {
@@ -6,7 +6,7 @@ pingRouter.get('/health', (req: Request, res: Response) => {
     status: 'OK',
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
-    message: 'Service is healthy'
+    message: 'Service is healthy',
   });
 });
 export default pingRouter;
