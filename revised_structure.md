@@ -31,5 +31,3 @@ throttler/
 ├── package.json
 ├── README.md
 └── postman_collection.json # Postman test cases (if exporting later)
-
-can you keep the .env's and create this folder structure ?
